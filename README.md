@@ -15,7 +15,7 @@ main.exe -connect 127.0.0.1
 ```
 server sock (listen pipe connection) :
 ```
-main.exe -listen -socks 127.0.0.1:8080
+main.exe -listen true -socks 127.0.0.1:8080
 ```
 
 
