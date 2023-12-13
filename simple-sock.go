@@ -10,7 +10,7 @@ import (
 "time"
 	socks5 "github.com/armon/go-socks5"
 	"github.com/hashicorp/yamux"
-		"github.com/microsoft/go-winio"
+		"github.com/Serizao/go-winio"
 )
 
 var session *yamux.Session
@@ -72,14 +72,23 @@ func listenForSocks(address string) {
 		return
 	}
 server, err := socks5.New(&socks5.Config{})
-	for {
-		conn, err := ln.Accept()
+	conn, err := ln.Accept()
 		if err != nil {
 			log.Println("error")
 			return
 		}
 		session, err = yamux.Server(conn, nil)
+		if err != nil {
+			log.Println("error")
+			return
+		}
+	for {
+
 		stream, err := session.Accept()
+		if err != nil {
+			log.Println("error")
+			return
+		}
 		go func() {
 			err = server.ServeConn(stream)
 			if err != nil {
